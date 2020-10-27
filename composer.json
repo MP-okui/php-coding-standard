@@ -1,6 +1,6 @@
 {
     "name": "mp-okui/php-coding-standard",
-    "description": "The coding standard of the Motionpicture project.",
+    "description": "The PHP coding standard of the Motionpicture projects. (temporary)",
     "type": "phpcodesniffer-standard",
     "require": {
         "php": "^7.2",
