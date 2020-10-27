@@ -148,6 +148,8 @@
         <!-- `@throws` lines can often be read as a sentence,
              i.e. `@throws RuntimeException if the file could not be written.` -->
         <exclude name="Squiz.Commenting.FunctionComment.ThrowsNotCapital"/>
+        <!-- Comments don't have to be sentences -->
+        <exclude name="Squiz.Commenting.FunctionComment.ThrowsNoFullStop"/>
         <!-- Doesn't work with self as typehint -->
         <exclude name="Squiz.Commenting.FunctionComment.TypeHintMissing"/>
     </rule>
