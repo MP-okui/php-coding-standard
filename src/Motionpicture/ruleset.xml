@@ -91,6 +91,11 @@
         <type>error</type>
     </rule>
 
+    <!-- Require that single line arrays have the correct spacing: no space around brackets and one space after comma -->
+    <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
+    <!-- Require comma after last element in multi-line array -->
+    <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
+
     <!-- Forbid spaces around square brackets -->
     <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
     <!-- Force array declaration structure -->
