@@ -1,0 +1,32 @@
+# https://docs.github.com/ja/free-pro-team@latest/actions
+
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  validate-schema:
+    name: Validate schema
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.2"
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Lint ruleset.xml
+        uses: ChristophWurst/xmllint-action@v1
+        with:
+          xml-file: ./src/Motionpicture/ruleset.xml
+          xml-schema-file: ./vendor/squizlabs/php_codesniffer/phpcs.xsd
