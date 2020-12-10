@@ -7,7 +7,12 @@
     <description>The Motionpicture coding standard.</description>
 
     <!-- Base rule -->
-    <rule ref="PSR12"/>
+    <rule ref="PSR12">
+        <!-- checked by SlevomatCodingStandard.Classes.ClassConstantVisibility -->
+        <exclude name="PSR12.Properties.ConstantVisibility"/>
+        <!-- checked by SlevomatCodingStandard.Classes.TraitUseSpacing -->
+        <exclude name="PSR12.Traits.UseDeclaration"/>
+    </rule>
 
     <!-- Force array element indentation with 4 spaces -->
     <rule ref="Generic.Arrays.ArrayIndent"/>
@@ -95,6 +100,32 @@
     <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
     <!-- Require comma after last element in multi-line array -->
     <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
+    <!-- Require presence of constant visibility -->
+    <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility"/>
+    <!-- Forbid LSB for constants (static::FOO) -->
+    <rule ref="SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants"/>
+    <!-- Forbid more than one constant declared per statement -->
+    <rule ref="SlevomatCodingStandard.Classes.DisallowMultiConstantDefinition"/>
+    <!-- Forbid empty lines around type declarations -->
+    <rule ref="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces">
+        <properties>
+            <property name="linesCountAfterOpeningBrace" value="0"/>
+            <property name="linesCountBeforeClosingBrace" value="0"/>
+        </properties>
+    </rule>
+    <!-- Require usage of ::class instead of __CLASS__, get_class(), get_class($this), get_called_class() and get_parent_class() -->
+    <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
+    <!-- Forbid uses of multiple traits separated by comma -->
+    <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
+    <!-- Require no spaces before trait use, between trait uses and one space after trait uses -->
+    <rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing">
+        <properties>
+            <property name="linesCountAfterLastUse" value="1"/>
+            <property name="linesCountAfterLastUseWhenLastInClass" value="0"/>
+            <property name="linesCountBeforeFirstUse" value="0"/>
+            <property name="linesCountBetweenUses" value="0"/>
+        </properties>
+    </rule>
 
     <!-- Forbid spaces around square brackets -->
     <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
