@@ -229,6 +229,10 @@
     <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn"/>
     <!-- Forbid usage of boolean-only ternary operator usage (e.g. $foo ? true : false) -->
     <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator"/>
+    <!-- Forbid useless unreachable catch blocks -->
+    <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
+    <!-- Require using Throwable instead of Exception -->
+    <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly"/>
 
     <!-- Forbid spaces around square brackets -->
     <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
