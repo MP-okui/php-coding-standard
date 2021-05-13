@@ -5,26 +5,48 @@ name: Test
 on: [push, pull_request]
 
 jobs:
-  validate-schema:
-    name: Validate schema
-
+  validate-dependencies:
+    name: Validate dependencies
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['7.2', '7.3', '7.4', '8.0']
 
     steps:
-      - name: Setup PHP
+      - name: Setup PHP ${{ matrix.php-version }}
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "7.2"
+          php-version: ${{ matrix.php-version }}
 
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Using Composer version 2
+        run: sudo composer self-update --2
+
       - name: Validate composer.json and composer.lock
         run: composer validate
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer Directory
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: php-${{ matrix.php-version }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: php-${{ matrix.php-version }}-composer
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
+  validate-schema:
+    name: Validate schema
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Lint ruleset.xml
         uses: ChristophWurst/xmllint-action@v1
         with:
