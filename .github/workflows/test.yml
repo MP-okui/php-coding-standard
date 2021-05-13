@@ -47,6 +47,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Lint ruleset.xml
         uses: ChristophWurst/xmllint-action@v1
         with:
