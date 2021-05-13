@@ -47,8 +47,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Using Composer version 2
+        run: sudo composer self-update --2
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer Directory
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: php-8.0-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: php-8.0-composer
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Lint ruleset.xml
         uses: ChristophWurst/xmllint-action@v1
